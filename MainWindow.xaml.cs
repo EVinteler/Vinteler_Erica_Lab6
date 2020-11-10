@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoLotModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +19,29 @@ namespace Vinteler_Erica_Lab6
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    enum ActionState
     {
+         New,
+         Edit,
+         Delete,
+         Nothing
+    }
+public partial class MainWindow : Window
+    {
+        ActionState action = ActionState.Nothing;
+        AutoLotEntitiesModel ctx = new AutoLotEntitiesModel();
+        CollectionViewSource customerViewSource;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource customerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerViewSource")));
+            customerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerViewSource")));
+            customerViewSource.Source = ctx.Customers.Local;
+            ctx.Customers.Load();
             // Load data by setting the CollectionViewSource.Source property:
             // customerViewSource.Source = [generic data source]
         }
