@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl x:Name="tbCtrlAutoLot" HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" RenderTransformOrigin="0.515,0.521">
-            <TabItem Header="Customers">
+            <TabItem Header="Customer">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Inventory">
