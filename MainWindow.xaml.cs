@@ -91,8 +91,11 @@ public partial class MainWindow : Window
                              };
             customerOrdersViewSource.Source = queryOrder.ToList();
         }
+        
 
         // BUTOANELE PT CUSTOMERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        private void btnNewCus_Click(object sender, RoutedEventArgs e)
+        { }
         private void btnSaveCus_Click(object sender, RoutedEventArgs e)
         {
             Customer customer = null;
@@ -190,6 +193,13 @@ public partial class MainWindow : Window
             }
         }
 
+        private void btnEditCus_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Edit;
+            BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
+            //SetValidationBinding();
+        }
         private void btnNextCus_Click (object sender, RoutedEventArgs e)
         {
             customerViewSource.View.MoveCurrentToNext();
@@ -452,5 +462,6 @@ public partial class MainWindow : Window
                 cmbInventory.IsEnabled = false;
             }*/
         }
+       
     }
 }

@@ -54,13 +54,13 @@
                         <Label Content="Last Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
                         <TextBox x:Name="lastNameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding LastName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}"/>
                     </Grid>
-                    <Button x:Name="btnNewCus" Content="New" HorizontalAlignment="Left" Margin="33,37,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnEditCus" Content="Edit" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnDeleteCus" Content="Delete" HorizontalAlignment="Left" Margin="33,125,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnSaveCus" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btsSaveCus_Click"/>
-                    <Button x:Name="btnCancelCus" Content="Cancel" HorizontalAlignment="Left" Margin="33,229,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnPrevCus" Content="Previous" HorizontalAlignment="Left" Margin="359,130,0,0" VerticalAlignment="Top" Width="75" Click="btsPrevCus_Click"/>
-                    <Button x:Name="btnNextCus" Content="Next" HorizontalAlignment="Left" Margin="684,130,0,0" VerticalAlignment="Top" Width="75" Click="btsNextCus_Click"/>
+                    <Button x:Name="btnNewCus" Content="New" HorizontalAlignment="Left" Margin="33,37,0,0" VerticalAlignment="Top" Width="75" Click="btnNewCus_Click"/>
+                    <Button x:Name="btnEditCus" Content="Edit" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="75" Click="btnEditCus_Click"/>
+                    <Button x:Name="btnDeleteCus" Content="Delete" HorizontalAlignment="Left" Margin="33,125,0,0" VerticalAlignment="Top" Width="75" Click="btnDeleteCus_Click"/>
+                    <Button x:Name="btnSaveCus" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveCus_Click"/>
+                    <Button x:Name="btnCancelCus" Content="Cancel" HorizontalAlignment="Left" Margin="33,229,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelCus_Click"/>
+                    <Button x:Name="btnPrevCus" Content="Previous" HorizontalAlignment="Left" Margin="359,130,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevCus_Click"/>
+                    <Button x:Name="btnNextCus" Content="Next" HorizontalAlignment="Left" Margin="684,130,0,0" VerticalAlignment="Top" Width="75" Click="btnNextCus_Click"/>
                 </Grid>
             </TabItem>
 
@@ -90,13 +90,13 @@
                         <Label Content="Make:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
                         <TextBox x:Name="makeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Make, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
                     </Grid>
-                    <Button x:Name="btnNewInv" Content="New" HorizontalAlignment="Left" Margin="33,37,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnEditInv" Content="Edit" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnDeleteInv" Content="Delete" HorizontalAlignment="Left" Margin="33,125,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnSaveInv" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btsSaveInv_Click"/>
-                    <Button x:Name="btnCancelInv" Content="Cancel" HorizontalAlignment="Left" Margin="33,229,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnPrevInv" Content="Previous" HorizontalAlignment="Left" Margin="359,215,0,0" VerticalAlignment="Top" Width="75" Click="btsPrevInv_Click"/>
-                    <Button x:Name="btnNextInv" Content="Next" HorizontalAlignment="Left" Margin="684,215,0,0" VerticalAlignment="Top" Width="75" Click="btsNextInv_Click"/>
+                    <Button x:Name="btnNewInv" Content="New" HorizontalAlignment="Left" Margin="33,37,0,0" VerticalAlignment="Top" Width="75" Click="btnNewInv_Click"/>
+                    <Button x:Name="btnEditInv" Content="Edit" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="75" Click="btnEditInv_Click"/>
+                    <Button x:Name="btnDeleteInv" Content="Delete" HorizontalAlignment="Left" Margin="33,125,0,0" VerticalAlignment="Top" Width="75" Click="btnDeleteInv_Click"/>
+                    <Button x:Name="btnSaveInv" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveInv_Click"/>
+                    <Button x:Name="btnCancelInv" Content="Cancel" HorizontalAlignment="Left" Margin="33,229,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelInv_Click"/>
+                    <Button x:Name="btnPrevInv" Content="Previous" HorizontalAlignment="Left" Margin="359,215,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevInv_Click"/>
+                    <Button x:Name="btnNextInv" Content="Next" HorizontalAlignment="Left" Margin="684,215,0,0" VerticalAlignment="Top" Width="75" Click="btnNextInv_Click"/>
                 </Grid>
             </TabItem>
 
@@ -142,13 +142,13 @@
                             <DataGridTextColumn x:Name="colorColumnOrd" Binding="{Binding Color}" Header="Color" Width="SizeToHeader"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnEditOrd" Content="Edit" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnDeleteOrd" Content="Delete" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnSaveOrd" Content="Save" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75" Click="btnNewOrd_Click"/>
+                    <Button x:Name="btnEditOrd" Content="Edit" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75" Click="btnEditOrd_Click"/>
+                    <Button x:Name="btnDeleteOrd" Content="Delete" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="75" Click="btnDeleteOrd_Click"/>
+                    <Button x:Name="btnSaveOrd" Content="Save" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveOrd_Click"/>
+                    <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelOrd_Click"/>
+                    <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevOrd_Click"/>
+                    <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75" Click="btnNextOrd_Click"/>
                     <TextBlock x:Name="txtCust" HorizontalAlignment="Left" Margin="182,26,0,0" TextWrapping="Wrap" Text="Customers" VerticalAlignment="Top"/>
                     <TextBlock x:Name="txtInv" HorizontalAlignment="Left" Margin="462,26,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
                 </Grid>
