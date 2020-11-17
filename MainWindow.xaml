@@ -57,7 +57,22 @@
                     <Button x:Name="btnNewCus" Content="New" HorizontalAlignment="Left" Margin="33,37,0,0" VerticalAlignment="Top" Width="75" Click="btnNewCus_Click"/>
                     <Button x:Name="btnEditCus" Content="Edit" HorizontalAlignment="Left" Margin="33,81,0,0" VerticalAlignment="Top" Width="75" Click="btnEditCus_Click"/>
                     <Button x:Name="btnDeleteCus" Content="Delete" HorizontalAlignment="Left" Margin="33,125,0,0" VerticalAlignment="Top" Width="75" Click="btnDeleteCus_Click"/>
-                    <Button x:Name="btnSaveCus" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveCus_Click"/>
+                    <Button x:Name="btnSaveCus" Content="Save" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveCus_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="IsEnabled" Value="false" />
+                            <Style.Triggers>
+                                <!-- Butonul Save va fi inactiv daca exista erori de validare -->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=lastNameTextBox, Path=(Validation.HasError)}" Value="false" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="true" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    </Button>
                     <Button x:Name="btnCancelCus" Content="Cancel" HorizontalAlignment="Left" Margin="33,229,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelCus_Click"/>
                     <Button x:Name="btnPrevCus" Content="Previous" HorizontalAlignment="Left" Margin="359,130,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevCus_Click"/>
                     <Button x:Name="btnNextCus" Content="Next" HorizontalAlignment="Left" Margin="684,130,0,0" VerticalAlignment="Top" Width="75" Click="btnNextCus_Click"/>
