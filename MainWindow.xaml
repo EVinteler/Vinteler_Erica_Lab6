@@ -10,6 +10,7 @@
     <Window.Resources>
         <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type AutoLotModel:Customer}, CreateList=True}"/>
         <CollectionViewSource x:Key="inventoryViewSource" d:DesignSource="{d:DesignInstance {x:Type AutoLotModel:Inventory}, CreateList=True}"/>
+        <CollectionViewSource x:Key="customerOrdersViewSource" Source="{Binding Orders, Source={StaticResource customerViewSource}}"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tbCtrlAutoLot" HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" RenderTransformOrigin="0.515,0.521">
@@ -87,7 +88,24 @@
             </TabItem>
 
             <TabItem Header="Orders" HorizontalAlignment="Left" Height="20.8" VerticalAlignment="Top" Width="53.6">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource customerOrdersViewSource}">
+                    <ComboBox x:Name="cmbCustomers" HorizontalAlignment="Left" Margin="182,42,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="cmbInventory" HorizontalAlignment="Left" Margin="462,42,0,0" VerticalAlignment="Top" Width="120"/>
+                    <DataGrid x:Name="ordersDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="182,104,186.8,68" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="carIdColumn1" Binding="{Binding CarId}" Header="Car Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="custIdColumn1" Binding="{Binding CustId}" Header="Cust Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="orderIdColumn" Binding="{Binding OrderId}" Header="Order Id" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnEditOrd" Content="Edit" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnDeleteOrd" Content="Delete" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnSaveOrd" Content="Save" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75"/>
+                </Grid>
             </TabItem>
         </TabControl>
 
