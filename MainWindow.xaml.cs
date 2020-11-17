@@ -47,7 +47,7 @@ public partial class MainWindow : Window
             customerViewSource.Source = ctx.Customers.Local;
 
             customerOrdersViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerOrdersViewSource")));
-            customerOrdersViewSource.Source = ctx.Orders.Local;
+            //customerOrdersViewSource.Source = ctx.Orders.Local;
 
             //inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
             //inventoryViewSource.Source = ctx.Inventory.Local;
@@ -57,12 +57,14 @@ public partial class MainWindow : Window
             ctx.Inventories.Load();
 
             cmbCustomers.ItemsSource = ctx.Customers.Local;
-            cmbCustomers.DisplayMemberPath = "FirstName";
+            //cmbCustomers.DisplayMemberPath = "FirstName";
             cmbCustomers.SelectedValuePath = "CustId";
             cmbInventory.ItemsSource = ctx.Inventories.Local;
-            cmbInventory.DisplayMemberPath = "Make";
+            //cmbInventory.DisplayMemberPath = "Make";
             cmbInventory.SelectedValuePath = "CarId";
 
+
+            BindDataGrid();
             // Load data by setting the CollectionViewSource.Source property:
             // customerViewSource.Source = [generic data source]
             System.Windows.Data.CollectionViewSource inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
@@ -70,6 +72,25 @@ public partial class MainWindow : Window
             // inventoryViewSource.Source = [generic data source]
         }
 
+        private void BindDataGrid()
+        {
+            var queryOrder = from ord in ctx.Orders
+                             join cust in ctx.Customers on ord.CustId equals
+                             cust.CustId
+                             join inv in ctx.Inventories on ord.CarId
+                 equals inv.CarId
+                             select new
+                             {
+                                 ord.OrderId,
+                                 ord.CarId,
+                                 ord.CustId,
+                                 cust.FirstName,
+                                 cust.LastName,
+                                 inv.Make,
+                                 inv.Color
+                             };
+            customerOrdersViewSource.Source = queryOrder.ToList();
+        }
 
         // BUTOANELE PT CUSTOMERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void btnSaveCus_Click(object sender, RoutedEventArgs e)

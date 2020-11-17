@@ -87,15 +87,46 @@
                 </Grid>
             </TabItem>
 
+            
             <TabItem Header="Orders" HorizontalAlignment="Left" Height="20.8" VerticalAlignment="Top" Width="53.6">
                 <Grid Background="#FFE5E5E5" DataContext="{StaticResource customerOrdersViewSource}">
-                    <ComboBox x:Name="cmbCustomers" HorizontalAlignment="Left" Margin="182,42,0,0" VerticalAlignment="Top" Width="120"/>
-                    <ComboBox x:Name="cmbInventory" HorizontalAlignment="Left" Margin="462,42,0,0" VerticalAlignment="Top" Width="120"/>
-                    <DataGrid x:Name="ordersDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="182,104,186.8,68" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <ComboBox x:Name="cmbCustomers" HorizontalAlignment="Left" Margin="182,42,0,0" VerticalAlignment="Top" Width="120">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="FirstName"/>
+                                        <Binding Path="LastName"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbInventory" HorizontalAlignment="Left" Margin="462,42,0,0" VerticalAlignment="Top" Width="120">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="Make"/>
+                                        <Binding Path="Color"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <DataGrid x:Name="ordersDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="182,104,186.8,68" RowDetailsVisibilityMode="VisibleWhenSelected" IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="carIdColumn1" Binding="{Binding CarId}" Header="Car Id" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="custIdColumn1" Binding="{Binding CustId}" Header="Cust Id" Width="SizeToHeader"/>
+                            <!-- <DataGridTextColumn x:Name="carIdColumn1" Binding="{Binding CarId}" Header="Car Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="custIdColumn1" Binding="{Binding CustId}" Header="Cust Id" Width="SizeToHeader"/>-->
                             <DataGridTextColumn x:Name="orderIdColumn" Binding="{Binding OrderId}" Header="Order Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="firstNameColumnOrd" Binding="{Binding FirstName}" Header="First Name" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="lastNameColumnOrd" Binding="{Binding LastName}" Header="Last Name" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="makeColumnOrd" Binding="{Binding Make}" Header="Make" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="colorColumnOrd" Binding="{Binding Color}" Header="Color" Width="SizeToHeader"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75"/>
