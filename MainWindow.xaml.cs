@@ -345,7 +345,53 @@ public partial class MainWindow : Window
                 cmbCustomers.IsEnabled = false;
                 cmbInventory.IsEnabled = false;
             }
-            else if (action == ActionState.Edit) // saving after we edit an element
+
+            else if (action == ActionState.Edit)
+            {
+                dynamic selectedOrder = ordersDataGrid.SelectedItem;
+                try
+                {
+                    int curr_id = selectedOrder.OrderId;
+                    var editedOrder = ctx.Orders.FirstOrDefault(s => s.OrderId == curr_id);
+                    if (editedOrder != null)
+                    {
+                        editedOrder.CustId = Int32.Parse(cmbCustomers.SelectedValue.ToString());
+                        // salvam modificarile
+                        ctx.SaveChanges();
+                    }
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                BindDataGrid();
+                // pozitionarea pe item-ul curent
+                customerViewSource.View.MoveCurrentTo(selectedOrder);
+            }
+            else if (action == ActionState.Delete)
+            {
+                try
+                {
+                    dynamic selectedOrder = ordersDataGrid.SelectedItem;
+
+                    int curr_id = selectedOrder.OrderId;
+                    var deletedOrder = ctx.Orders.FirstOrDefault(s => s.OrderId == curr_id);
+                    if (deletedOrder != null)
+                    {
+                        ctx.Orders.Remove(deletedOrder);
+                        ctx.SaveChanges();
+                        MessageBox.Show("Order Deleted Successfully", "Message");
+                        BindDataGrid();
+                    }
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            // code before changes / before step 40
+            /*else if (action == ActionState.Edit) // saving after we edit an element
             {
                 try
                 {
@@ -404,7 +450,7 @@ public partial class MainWindow : Window
 
                 cmbCustomers.IsEnabled = false;
                 cmbInventory.IsEnabled = false;
-            }
+            }*/
         }
     }
 }
