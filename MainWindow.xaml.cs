@@ -48,12 +48,8 @@ public partial class MainWindow : Window
             // customerViewSource.Source = [generic data source]
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSaveCus_Click(object sender, RoutedEventArgs e)
         {
             Customer customer = null;
             if (action == ActionState.New) // saving after we make a new element
@@ -77,6 +73,14 @@ public partial class MainWindow : Window
                 {
                     MessageBox.Show(ex.Message);
                 }
+                btnNewCus.IsEnabled = true;
+                btnEditCus.IsEnabled = true;
+                btnSaveCus.IsEnabled = false;
+                customerDataGrid.IsEnabled = true;
+                btnPrevCus.IsEnabled = true;
+                btnNextCus.IsEnabled = true;
+                firstNameTextBox.IsEnabled = false;
+                lastNameTextBox.IsEnabled = false;
             }
             else if (action == ActionState.Edit) // saving after we edit an element
             {
@@ -112,5 +116,19 @@ public partial class MainWindow : Window
             }
         }
 
+        private void btnNextCus_Click (object sender, RoutedEventArgs e)
+        {
+            customerViewSource.View.MoveCurrentToNext();
+        }
+        private void btnPreviousCus_Click (object sender, RoutedEventArgs e)
+        {
+            customerViewSource.View.MoveCurrentToPrevious();
+        }
+
+
+        /*private void btnSave_Click (object sender, RoutedEventArgs e)
+        {
+
+        }*/
     }
 }
