@@ -33,6 +33,7 @@ public partial class MainWindow : Window
         ActionState action = ActionState.Nothing;
         AutoLotEntitiesModel ctx = new AutoLotEntitiesModel();
         CollectionViewSource customerViewSource;
+        CollectionViewSource inventoryViewSource;
         public MainWindow()
         {
             InitializeComponent();
@@ -52,6 +53,7 @@ public partial class MainWindow : Window
         }
 
 
+        // BUTOANELE PT CUSTOMERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void btnSaveCus_Click(object sender, RoutedEventArgs e)
         {
             Customer customer = null;
@@ -102,6 +104,21 @@ public partial class MainWindow : Window
                 customerViewSource.View.Refresh();
                 // pozitionarea pe item-ul curent
                 customerViewSource.View.MoveCurrentTo(customer);
+
+                btnNewCus.IsEnabled = true;
+                btnEditCus.IsEnabled = true;
+                btnDeleteCus.IsEnabled = true;
+
+                btnSaveCus.IsEnabled = false;
+                btnCancelCus.IsEnabled = false;
+                customerDataGrid.IsEnabled = true;
+                btnPrevCus.IsEnabled = true;
+                btnNextCus.IsEnabled = true;
+                firstNameTextBox.IsEnabled = false;
+                lastNameTextBox.IsEnabled = false;
+
+                //firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameTextBoxBinding);
+                //lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameTextBoxBinding);
             }
             else if (action == ActionState.Delete) // saving after we delete an element
             {
@@ -116,6 +133,21 @@ public partial class MainWindow : Window
                     MessageBox.Show(ex.Message);
                 }
                 customerViewSource.View.Refresh();
+
+                btnNewCus.IsEnabled = true;
+                btnEditCus.IsEnabled = true;
+                btnDeleteCus.IsEnabled = true;
+
+                btnSaveCus.IsEnabled = false;
+                btnCancelCus.IsEnabled = false;
+                customerDataGrid.IsEnabled = true;
+                btnPrevCus.IsEnabled = true;
+                btnNextCus.IsEnabled = true;
+                firstNameTextBox.IsEnabled = false;
+                lastNameTextBox.IsEnabled = false;
+
+                //firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameTextBoxBinding);
+                //lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameTextBoxBinding);
             }
         }
 
@@ -129,9 +161,111 @@ public partial class MainWindow : Window
         }
 
 
-        /*private void btnSave_Click (object sender, RoutedEventArgs e)
+        // BUTOANELE PENTRU INVENTORY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        private void btnSaveInv_Click(object sender, RoutedEventArgs e)
         {
+            Inventory inventory = null;
+            if (action == ActionState.New) // saving after we make a new element
+            {
+                try
+                {
+                    // instantiem customer entity
+                    inventory = new Inventory()
+                    {
+                        Make = makeTextBox.Text.Trim(),
+                        Color = colorTextBox.Text.Trim()
+                    };
+                    // adaugam entitatea nou creata in context
+                    ctx.Inventories.Add(inventory);
+                    inventoryViewSource.View.Refresh();
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                // using System.Data;
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                btnNewInv.IsEnabled = true;
+                btnEditInv.IsEnabled = true;
+                btnSaveInv.IsEnabled = false;
+                inventoryDataGrid.IsEnabled = true;
+                btnPrevInv.IsEnabled = true;
+                btnNextInv.IsEnabled = true;
+                makeTextBox.IsEnabled = false;
+                colorTextBox.IsEnabled = false;
+            }
+            else if (action == ActionState.Edit) // saving after we edit an element
+            {
+                try
+                {
+                    inventory = (Inventory)inventoryDataGrid.SelectedItem;
+                    inventory.Make = makeTextBox.Text.Trim();
+                    inventory.Color = colorTextBox.Text.Trim();
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                inventoryViewSource.View.Refresh();
+                // pozitionarea pe item-ul curent
+                inventoryViewSource.View.MoveCurrentTo(inventory);
 
-        }*/
+                btnNewInv.IsEnabled = true;
+                btnEditInv.IsEnabled = true;
+                btnDeleteInv.IsEnabled = true;
+
+                btnSaveInv.IsEnabled = false;
+                btnCancelInv.IsEnabled = false;
+                inventoryDataGrid.IsEnabled = true;
+                btnPrevInv.IsEnabled = true;
+                btnNextInv.IsEnabled = true;
+                makeTextBox.IsEnabled = false;
+                colorTextBox.IsEnabled = false;
+
+                //makeTextBox.SetBinding(TextBox.TextProperty, makeTextBoxBinding);
+                //colorTextBox.SetBinding(TextBox.TextProperty, colorTextBoxBinding);
+            }
+            else if (action == ActionState.Delete) // saving after we delete an element
+            {
+                try
+                {
+                    inventory = (Inventory)inventoryDataGrid.SelectedItem;
+                    ctx.Inventories.Remove(inventory);
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                inventoryViewSource.View.Refresh();
+
+                btnNewInv.IsEnabled = true;
+                btnEditInv.IsEnabled = true;
+                btnDeleteInv.IsEnabled = true;
+
+                btnSaveInv.IsEnabled = false;
+                btnCancelInv.IsEnabled = false;
+                inventoryDataGrid.IsEnabled = true;
+                btnPrevInv.IsEnabled = true;
+                btnNextInv.IsEnabled = true;
+                makeTextBox.IsEnabled = false;
+                colorTextBox.IsEnabled = false;
+
+                //makeTextBox.SetBinding(TextBox.TextProperty, makeTextBoxBinding);
+                //colorTextBox.SetBinding(TextBox.TextProperty, colorTextBoxBinding);
+            }
+        }
+
+        private void btnNextInv_Click(object sender, RoutedEventArgs e)
+        {
+            inventoryViewSource.View.MoveCurrentToNext();
+        }
+        private void btnPreviousInv_Click(object sender, RoutedEventArgs e)
+        {
+            inventoryViewSource.View.MoveCurrentToPrevious();
+        }
     }
 }
