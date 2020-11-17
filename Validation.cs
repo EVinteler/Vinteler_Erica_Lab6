@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Vinteler_Erica_Lab6
 {
@@ -25,27 +30,5 @@ namespace Vinteler_Erica_Lab6
                 return new ValidationResult(false, "String must have at least 3 characters!");
             return new ValidationResult(true, null);
         }
-    }
-    private void SetValidationBinding()
-    {
-        Binding firstNameValidationBinding = new Binding();
-        firstNameValidationBinding.Source = customerViewSource;
-        firstNameValidationBinding.Path = new PropertyPath("FirstName");
-        firstNameValidationBinding.NotifyOnValidationError = true;
-        firstNameValidationBinding.Mode = BindingMode.TwoWay;
-        firstNameValidationBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-        // string required
-        firstNameValidationBinding.ValidationRules.Add(new StringNotEmpty());
-        firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameValidationBinding);
-
-        Binding lastNameValidationBinding = new Binding();
-        lastNameValidationBinding.Source = customerViewSource;
-        lastNameValidationBinding.Path = new PropertyPath("LastName");
-        lastNameValidationBinding.NotifyOnValidationError = true;
-        lastNameValidationBinding.Mode = BindingMode.TwoWay;
-        lastNameValidationBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-        // string min length validator
-        lastNameValidationBinding.ValidationRules.Add(new StringMinLengthValid());
-        lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameValidationBinding);
     }
 }

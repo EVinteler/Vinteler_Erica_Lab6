@@ -67,7 +67,11 @@ public partial class MainWindow : Window
             //inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
             //inventoryViewSource.Source = ctx.Inventory.Local;
 
-            ctx.Customers.Load();
+            try { ctx.Customers.Load(); }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
             ctx.Orders.Load();
             ctx.Inventories.Load();
 
@@ -104,9 +108,36 @@ public partial class MainWindow : Window
                                  inv.Make,
                                  inv.Color
                              };
-            customerOrdersViewSource.Source = queryOrder.ToList();
+            try { customerOrdersViewSource.Source = queryOrder.ToList(); }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+            
         }
-        
+
+        private void SetValidationBinding()
+        {
+            Binding firstNameValidationBinding = new Binding();
+            firstNameValidationBinding.Source = customerViewSource;
+            firstNameValidationBinding.Path = new PropertyPath("FirstName");
+            firstNameValidationBinding.NotifyOnValidationError = true;
+            firstNameValidationBinding.Mode = BindingMode.TwoWay;
+            firstNameValidationBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            // string required
+            firstNameValidationBinding.ValidationRules.Add(new StringNotEmpty());
+            firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameValidationBinding);
+
+            Binding lastNameValidationBinding = new Binding();
+            lastNameValidationBinding.Source = customerViewSource;
+            lastNameValidationBinding.Path = new PropertyPath("LastName");
+            lastNameValidationBinding.NotifyOnValidationError = true;
+            lastNameValidationBinding.Mode = BindingMode.TwoWay;
+            lastNameValidationBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            // string min length validator
+            lastNameValidationBinding.ValidationRules.Add(new StringMinLengthValidator());
+            lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameValidationBinding);
+        }
 
         // BUTOANELE PT CUSTOMERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void btnNewCus_Click(object sender, RoutedEventArgs e)
@@ -156,7 +187,7 @@ public partial class MainWindow : Window
             lastNameTextBox.Text = tempLastName;
             Keyboard.Focus(firstNameTextBox);
 
-            //SetValidationBinding();
+            SetValidationBinding();
         }
         private void btnDeleteCus_Click(object sender, RoutedEventArgs e)
         {
@@ -302,7 +333,7 @@ public partial class MainWindow : Window
         {
             customerViewSource.View.MoveCurrentToNext();
         }
-        private void btnPreviousCus_Click (object sender, RoutedEventArgs e)
+        private void btnPrevCus_Click (object sender, RoutedEventArgs e)
         {
             customerViewSource.View.MoveCurrentToPrevious();
         }
@@ -501,7 +532,7 @@ public partial class MainWindow : Window
         {
             inventoryViewSource.View.MoveCurrentToNext();
         }
-        private void btnPreviousInv_Click(object sender, RoutedEventArgs e)
+        private void btnPrevInv_Click(object sender, RoutedEventArgs e)
         {
             inventoryViewSource.View.MoveCurrentToPrevious();
         }

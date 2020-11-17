@@ -157,13 +157,13 @@
                             <DataGridTextColumn x:Name="colorColumnOrd" Binding="{Binding Color}" Header="Color" Width="SizeToHeader"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75" Click="btnNewOrd_Click"/>
-                    <Button x:Name="btnEditOrd" Content="Edit" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75" Click="btnEditOrd_Click"/>
-                    <Button x:Name="btnDeleteOrd" Content="Delete" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="75" Click="btnDeleteOrd_Click"/>
+                    <Button x:Name="btnNewOrd" Content="New" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnNewOrd_Click"  /> -->
+                    <Button x:Name="btnEditOrd" Content="Edit" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnEditOrd_Click"  /> -->
+                    <Button x:Name="btnDeleteOrd" Content="Delete" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnDeleteOrd_Click"/> -->
                     <Button x:Name="btnSaveOrd" Content="Save" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveOrd_Click"/>
-                    <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelOrd_Click"/>
-                    <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevOrd_Click"/>
-                    <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75" Click="btnNextOrd_Click"/>
+                    <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnCancelOrd_Click"/> -->
+                    <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnPrevOrd_Click"/> -->
+                    <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75"/> <!-- Click="btnNextOrd_Click"/> -->
                     <TextBlock x:Name="txtCust" HorizontalAlignment="Left" Margin="182,26,0,0" TextWrapping="Wrap" Text="Customers" VerticalAlignment="Top"/>
                     <TextBlock x:Name="txtInv" HorizontalAlignment="Left" Margin="462,26,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
                 </Grid>
