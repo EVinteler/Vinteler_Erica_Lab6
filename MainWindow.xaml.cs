@@ -1,6 +1,8 @@
 ﻿using AutoLotModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,5 +52,65 @@ public partial class MainWindow : Window
         {
 
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Customer customer = null;
+            if (action == ActionState.New) // saving after we make a new element
+            {
+                try
+                {
+                    // instantiem customer entity
+                    customer = new Customer()
+                    {
+                        FirstName = firstNameTextBox.Text.Trim(),
+                        LastName = lastNameTextBox.Text.Trim()
+                    };
+                    // adaugam entitatea nou creata in context
+                    ctx.Customers.Add(customer);
+                    customerViewSource.View.Refresh();
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                // using System.Data;
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else if (action == ActionState.Edit) // saving after we edit an element
+            {
+                try
+                {
+                    customer = (Customer)customerDataGrid.SelectedItem;
+                    customer.FirstName = firstNameTextBox.Text.Trim();
+                    customer.LastName = lastNameTextBox.Text.Trim();
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                customerViewSource.View.Refresh();
+                // pozitionarea pe item-ul curent
+                customerViewSource.View.MoveCurrentTo(customer);
+            }
+            else if (action == ActionState.Delete) // saving after we delete an element
+            {
+                try
+                {
+                    customer = (Customer)customerDataGrid.SelectedItem;
+                    ctx.Customers.Remove(customer);
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                customerViewSource.View.Refresh();
+            }
+        }
+
     }
 }
