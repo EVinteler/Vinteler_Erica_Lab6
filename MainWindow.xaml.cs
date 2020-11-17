@@ -321,10 +321,8 @@ public partial class MainWindow : Window
                 btnPrevOrd.IsEnabled = true;
                 btnNextOrd.IsEnabled = true;
 
-                /*
-                custTextBox.IsEnabled = false;
-                caridTextBox.IsEnabled = false;
-                */
+                cmbCustomers.IsEnabled = false;
+                cmbInventory.IsEnabled = false;
             }
             else if (action == ActionState.Edit) // saving after we edit an element
             {
@@ -356,24 +354,22 @@ public partial class MainWindow : Window
                 btnPrevOrd.IsEnabled = true;
                 btnNextOrd.IsEnabled = true;
 
-                /*
-                makeTextBox.IsEnabled = false;
-                colorTextBox.IsEnabled = false;
-                */
+                cmbCustomers.IsEnabled = false;
+                cmbInventory.IsEnabled = false;
             }
             else if (action == ActionState.Delete) // saving after we delete an element
             {
                 try
                 {
-                    inventory = (Inventory)inventoryDataGrid.SelectedItem;
-                    ctx.Inventories.Remove(inventory);
+                    order = (Order)ordersDataGrid.SelectedItem;
+                    ctx.Orders.Remove(order);
                     ctx.SaveChanges();
                 }
                 catch (DataException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                inventoryViewSource.View.Refresh();
+                customerOrdersViewSource.View.Refresh();
 
                 btnNewOrd.IsEnabled = true;
                 btnEditOrd.IsEnabled = true;
@@ -385,10 +381,8 @@ public partial class MainWindow : Window
                 btnPrevOrd.IsEnabled = true;
                 btnNextOrd.IsEnabled = true;
 
-                /*
-                makeTextBox.IsEnabled = false;
-                colorTextBox.IsEnabled = false;
-                */
+                cmbCustomers.IsEnabled = false;
+                cmbInventory.IsEnabled = false;
             }
         }
     }
