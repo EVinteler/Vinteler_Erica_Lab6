@@ -34,6 +34,7 @@ public partial class MainWindow : Window
         AutoLotEntitiesModel ctx = new AutoLotEntitiesModel();
         CollectionViewSource customerViewSource;
         CollectionViewSource inventoryViewSource;
+        CollectionViewSource customerOrdersViewSource;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,7 +45,24 @@ public partial class MainWindow : Window
         {
             customerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerViewSource")));
             customerViewSource.Source = ctx.Customers.Local;
+
+            customerOrdersViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerOrdersViewSource")));
+            customerOrdersViewSource.Source = ctx.Orders.Local;
+
+            //inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
+            //inventoryViewSource.Source = ctx.Inventory.Local;
+
             ctx.Customers.Load();
+            ctx.Orders.Load();
+            ctx.Inventories.Load();
+
+            cmbCustomers.ItemsSource = ctx.Customers.Local;
+            cmbCustomers.DisplayMemberPath = "FirstName";
+            cmbCustomers.SelectedValuePath = "CustId";
+            cmbInventory.ItemsSource = ctx.Inventories.Local;
+            cmbInventory.DisplayMemberPath = "Make";
+            cmbInventory.SelectedValuePath = "CarId";
+
             // Load data by setting the CollectionViewSource.Source property:
             // customerViewSource.Source = [generic data source]
             System.Windows.Data.CollectionViewSource inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
