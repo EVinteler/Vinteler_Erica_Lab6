@@ -64,14 +64,10 @@ public partial class MainWindow : Window
             customerOrdersViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("customerOrdersViewSource")));
             //customerOrdersViewSource.Source = ctx.Orders.Local;
 
-            //inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
-            //inventoryViewSource.Source = ctx.Inventory.Local;
+            inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
+            inventoryViewSource.Source = ctx.Inventories.Local;
 
-            try { ctx.Customers.Load(); }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-            }
+            ctx.Customers.Load();
             ctx.Orders.Load();
             ctx.Inventories.Load();
 
@@ -84,11 +80,6 @@ public partial class MainWindow : Window
 
 
             BindDataGrid();
-            // Load data by setting the CollectionViewSource.Source property:
-            // customerViewSource.Source = [generic data source]
-            System.Windows.Data.CollectionViewSource inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // inventoryViewSource.Source = [generic data source]
         }
 
         private void BindDataGrid()
@@ -108,12 +99,7 @@ public partial class MainWindow : Window
                                  inv.Make,
                                  inv.Color
                              };
-            try { customerOrdersViewSource.Source = queryOrder.ToList(); }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-            }
-            
+            customerOrdersViewSource.Source = queryOrder.ToList();
         }
 
         private void SetValidationBinding()
@@ -152,8 +138,9 @@ public partial class MainWindow : Window
             customerDataGrid.IsEnabled = false;
             btnPrevCus.IsEnabled = false;
             btnNextCus.IsEnabled = false;
-            firstNameTextBox.IsEnabled = false;
-            lastNameTextBox.IsEnabled = false;
+            custIdTextBox.IsEnabled = false;
+            firstNameTextBox.IsEnabled = true;
+            lastNameTextBox.IsEnabled = true;
 
             BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
             BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
@@ -242,6 +229,7 @@ public partial class MainWindow : Window
                     // instantiem customer entity
                     customer = new Customer()
                     {
+                        //CustId = Int32.Parse(custIdTextBox.Text.Trim()),
                         FirstName = firstNameTextBox.Text.Trim(),
                         LastName = lastNameTextBox.Text.Trim()
                     };
@@ -262,6 +250,7 @@ public partial class MainWindow : Window
                 customerDataGrid.IsEnabled = true;
                 btnPrevCus.IsEnabled = true;
                 btnNextCus.IsEnabled = true;
+                custIdTextBox.IsEnabled = false;
                 firstNameTextBox.IsEnabled = false;
                 lastNameTextBox.IsEnabled = false;
             }
@@ -270,6 +259,7 @@ public partial class MainWindow : Window
                 try
                 {
                     customer = (Customer)customerDataGrid.SelectedItem;
+                    //customer.CustId = Int32.Parse(custIdTextBox.Text.Trim());
                     customer.FirstName = firstNameTextBox.Text.Trim();
                     customer.LastName = lastNameTextBox.Text.Trim();
                     // salvam modificarile
@@ -352,8 +342,8 @@ public partial class MainWindow : Window
             inventoryDataGrid.IsEnabled = false;
             btnPrevInv.IsEnabled = false;
             btnNextInv.IsEnabled = false;
-            makeTextBox.IsEnabled = false;
-            colorTextBox.IsEnabled = false;
+            makeTextBox.IsEnabled = true;
+            colorTextBox.IsEnabled = true;
 
             BindingOperations.ClearBinding(makeTextBox, TextBox.TextProperty);
             BindingOperations.ClearBinding(colorTextBox, TextBox.TextProperty);
