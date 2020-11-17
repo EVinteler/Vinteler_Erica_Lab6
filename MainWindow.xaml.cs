@@ -46,6 +46,9 @@ public partial class MainWindow : Window
             ctx.Customers.Load();
             // Load data by setting the CollectionViewSource.Source property:
             // customerViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource inventoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("inventoryViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // inventoryViewSource.Source = [generic data source]
         }
 
 
