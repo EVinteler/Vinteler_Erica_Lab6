@@ -40,6 +40,8 @@ public partial class MainWindow : Window
         Binding lastNameBinding = new Binding();
         Binding makeBinding = new Binding();
         Binding colorBinding = new Binding();
+        Binding custIdBinding = new Binding();
+        Binding carIdBinding = new Binding();
 
         public MainWindow()
         {
@@ -135,10 +137,11 @@ public partial class MainWindow : Window
 
             btnSaveCus.IsEnabled = true;
             btnCancelCus.IsEnabled = true;
+
             customerDataGrid.IsEnabled = false;
             btnPrevCus.IsEnabled = false;
             btnNextCus.IsEnabled = false;
-            custIdTextBox.IsEnabled = false;
+
             firstNameTextBox.IsEnabled = true;
             lastNameTextBox.IsEnabled = true;
 
@@ -161,9 +164,11 @@ public partial class MainWindow : Window
 
             btnSaveCus.IsEnabled = true;
             btnCancelCus.IsEnabled = true;
+
             customerDataGrid.IsEnabled = false;
             btnPrevCus.IsEnabled = false;
             btnNextCus.IsEnabled = false;
+
             firstNameTextBox.IsEnabled = true;
             lastNameTextBox.IsEnabled = true;
 
@@ -188,6 +193,7 @@ public partial class MainWindow : Window
 
             btnSaveCus.IsEnabled = true;
             btnCancelCus.IsEnabled = true;
+
             customerDataGrid.IsEnabled = false;
             btnPrevCus.IsEnabled = false;
             btnNextCus.IsEnabled = false;
@@ -208,6 +214,7 @@ public partial class MainWindow : Window
 
             btnSaveCus.IsEnabled = false;
             btnCancelCus.IsEnabled = false;
+
             customerDataGrid.IsEnabled = true;
             btnPrevCus.IsEnabled = true;
             btnNextCus.IsEnabled = true;
@@ -229,7 +236,6 @@ public partial class MainWindow : Window
                     // instantiem customer entity
                     customer = new Customer()
                     {
-                        //CustId = Int32.Parse(custIdTextBox.Text.Trim()),
                         FirstName = firstNameTextBox.Text.Trim(),
                         LastName = lastNameTextBox.Text.Trim()
                     };
@@ -250,7 +256,6 @@ public partial class MainWindow : Window
                 customerDataGrid.IsEnabled = true;
                 btnPrevCus.IsEnabled = true;
                 btnNextCus.IsEnabled = true;
-                custIdTextBox.IsEnabled = false;
                 firstNameTextBox.IsEnabled = false;
                 lastNameTextBox.IsEnabled = false;
             }
@@ -259,7 +264,6 @@ public partial class MainWindow : Window
                 try
                 {
                     customer = (Customer)customerDataGrid.SelectedItem;
-                    //customer.CustId = Int32.Parse(custIdTextBox.Text.Trim());
                     customer.FirstName = firstNameTextBox.Text.Trim();
                     customer.LastName = lastNameTextBox.Text.Trim();
                     // salvam modificarile
@@ -339,9 +343,11 @@ public partial class MainWindow : Window
 
             btnSaveInv.IsEnabled = true;
             btnCancelInv.IsEnabled = true;
+
             inventoryDataGrid.IsEnabled = false;
             btnPrevInv.IsEnabled = false;
             btnNextInv.IsEnabled = false;
+
             makeTextBox.IsEnabled = true;
             colorTextBox.IsEnabled = true;
 
@@ -364,9 +370,11 @@ public partial class MainWindow : Window
 
             btnSaveInv.IsEnabled = true;
             btnCancelInv.IsEnabled = true;
+
             inventoryDataGrid.IsEnabled = false;
             btnPrevInv.IsEnabled = false;
             btnNextInv.IsEnabled = false;
+
             makeTextBox.IsEnabled = true;
             colorTextBox.IsEnabled = true;
 
@@ -390,6 +398,7 @@ public partial class MainWindow : Window
 
             btnSaveInv.IsEnabled = true;
             btnCancelInv.IsEnabled = true;
+
             inventoryDataGrid.IsEnabled = false;
             btnPrevInv.IsEnabled = false;
             btnNextInv.IsEnabled = false;
@@ -529,6 +538,89 @@ public partial class MainWindow : Window
 
         // BUTOANELE PT ORDERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
+        private void btnNewOrd_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.New;
+            btnNewOrd.IsEnabled = false;
+            btnEditOrd.IsEnabled = true;
+            btnDeleteOrd.IsEnabled = true;
+            btnSaveOrd.IsEnabled = true;
+            btnCancelOrd.IsEnabled = true;
+            ordersDataGrid.IsEnabled = true;
+            btnPrevOrd.IsEnabled = true;
+            btnNextOrd.IsEnabled = true;
+
+            cmbCustomers.IsEnabled = true;
+            cmbInventory.IsEnabled = true;
+
+            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+        }
+        private void btnEditOrd_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Edit;
+            string tempCustId = cmbCustomers.Text.ToString();
+            string tempCarId = cmbInventory.Text.ToString();
+
+            btnNewOrd.IsEnabled = false;
+            btnEditOrd.IsEnabled = false;
+            btnDeleteOrd.IsEnabled = false;
+            btnSaveOrd.IsEnabled = true;
+            btnCancelOrd.IsEnabled = true;
+            ordersDataGrid.IsEnabled = true;
+            btnPrevOrd.IsEnabled = false;
+            btnNextOrd.IsEnabled = false;
+
+            cmbCustomers.IsEnabled = true;
+            cmbInventory.IsEnabled = true;
+
+            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+            cmbCustomers.Text = tempCustId;
+            cmbInventory.Text = tempCarId;
+        }
+        private void btnDeleteOrd_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Delete;
+            string tempCustId = cmbCustomers.Text.ToString();
+            string tempCarId = cmbInventory.Text.ToString();
+
+            btnNewOrd.IsEnabled = false;
+            btnEditOrd.IsEnabled = false;
+            btnDeleteOrd.IsEnabled = false;
+            btnSaveOrd.IsEnabled = true;
+            btnCancelOrd.IsEnabled = true;
+            ordersDataGrid.IsEnabled = true;
+            btnPrevOrd.IsEnabled = false;
+            btnNextOrd.IsEnabled = false;
+
+            cmbCustomers.IsEnabled = true;
+            cmbInventory.IsEnabled = true;
+
+            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+            cmbCustomers.Text = tempCustId;
+            cmbInventory.Text = tempCarId;
+        }
+        private void btnCancelOrd_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Nothing;
+
+            btnNewOrd.IsEnabled = true;
+            btnEditOrd.IsEnabled = true;
+            btnDeleteOrd.IsEnabled = true;
+            btnSaveOrd.IsEnabled = false;
+            btnCancelOrd.IsEnabled = false;
+            ordersDataGrid.IsEnabled = true;
+            btnPrevOrd.IsEnabled = true;
+            btnNextOrd.IsEnabled = true;
+
+            cmbCustomers.IsEnabled = false;
+            cmbInventory.IsEnabled = false;
+
+            cmbCustomers.SetBinding(ComboBox.TextProperty, custIdBinding);
+            cmbInventory.SetBinding(ComboBox.TextProperty, carIdBinding);
+        }
         private void btnSaveOrd_Click (object sender, RoutedEventArgs e)
         {
             Order order = null;
@@ -558,13 +650,15 @@ public partial class MainWindow : Window
                 }
                 btnNewOrd.IsEnabled = true;
                 btnEditOrd.IsEnabled = true;
+                btnDeleteOrd.IsEnabled = true;
                 btnSaveOrd.IsEnabled = false;
+                btnCancelOrd.IsEnabled = false;
                 ordersDataGrid.IsEnabled = true;
                 btnPrevOrd.IsEnabled = true;
                 btnNextOrd.IsEnabled = true;
 
-                cmbCustomers.IsEnabled = false;
-                cmbInventory.IsEnabled = false;
+                cmbCustomers.IsEnabled = true;
+                cmbInventory.IsEnabled = true;
             }
 
             else if (action == ActionState.Edit)
