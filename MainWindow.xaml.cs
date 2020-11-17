@@ -285,5 +285,111 @@ public partial class MainWindow : Window
         {
             inventoryViewSource.View.MoveCurrentToPrevious();
         }
+
+        // BUTOANELE PT ORDERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        private void btnSaveOrd_Click (object sender, RoutedEventArgs e)
+        {
+            Order order = null;
+            if (action == ActionState.New)
+            {
+                try
+                {
+                    Customer customer = (Customer)cmbCustomers.SelectedItem;
+                    Inventory inventory = (Inventory)cmbInventory.SelectedItem;
+
+                    // instantiem Order entity
+                    order = new Order()
+                    {
+                        CustId = customer.CustId,
+                        CarId = inventory.CarId
+                    };
+
+                    // adaugam entitatea nou creata in context
+                    ctx.Orders.Add(order);
+                    customerOrdersViewSource.View.Refresh();
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                btnNewOrd.IsEnabled = true;
+                btnEditOrd.IsEnabled = true;
+                btnSaveOrd.IsEnabled = false;
+                ordersDataGrid.IsEnabled = true;
+                btnPrevOrd.IsEnabled = true;
+                btnNextOrd.IsEnabled = true;
+
+                /*
+                custTextBox.IsEnabled = false;
+                caridTextBox.IsEnabled = false;
+                */
+            }
+            else if (action == ActionState.Edit) // saving after we edit an element
+            {
+                try
+                {
+                    // schimbam order-ul de la drop down-uri
+                    order = (Order)ordersDataGrid.SelectedItem;
+                    order.CustId = cmbCustomers.SelectedIndex;
+                    order.CarId = cmbCustomers.SelectedIndex;
+
+                    // salvam modificarile
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                customerOrdersViewSource.View.Refresh();
+                // pozitionarea pe item-ul curent
+                customerOrdersViewSource.View.MoveCurrentTo(order);
+
+                btnNewOrd.IsEnabled = true;
+                btnEditOrd.IsEnabled = true;
+                btnDeleteOrd.IsEnabled = true;
+
+                btnSaveOrd.IsEnabled = false;
+                btnCancelOrd.IsEnabled = false;
+                ordersDataGrid.IsEnabled = true;
+                btnPrevOrd.IsEnabled = true;
+                btnNextOrd.IsEnabled = true;
+
+                /*
+                makeTextBox.IsEnabled = false;
+                colorTextBox.IsEnabled = false;
+                */
+            }
+            else if (action == ActionState.Delete) // saving after we delete an element
+            {
+                try
+                {
+                    inventory = (Inventory)inventoryDataGrid.SelectedItem;
+                    ctx.Inventories.Remove(inventory);
+                    ctx.SaveChanges();
+                }
+                catch (DataException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                inventoryViewSource.View.Refresh();
+
+                btnNewOrd.IsEnabled = true;
+                btnEditOrd.IsEnabled = true;
+                btnDeleteOrd.IsEnabled = true;
+
+                btnSaveOrd.IsEnabled = false;
+                btnCancelOrd.IsEnabled = false;
+                ordersDataGrid.IsEnabled = true;
+                btnPrevOrd.IsEnabled = true;
+                btnNextOrd.IsEnabled = true;
+
+                /*
+                makeTextBox.IsEnabled = false;
+                colorTextBox.IsEnabled = false;
+                */
+            }
+        }
     }
 }

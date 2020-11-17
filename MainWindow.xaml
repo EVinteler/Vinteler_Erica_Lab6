@@ -105,6 +105,8 @@
                     <Button x:Name="btnCancelOrd" Content="Cancel" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="btnPrevOrd" Content="Previous" HorizontalAlignment="Left" Margin="182,309,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="btnNextOrd" Content="Next" HorizontalAlignment="Left" Margin="507,309,0,0" VerticalAlignment="Top" Width="75"/>
+                    <TextBlock x:Name="txtCust" HorizontalAlignment="Left" Margin="182,26,0,0" TextWrapping="Wrap" Text="Customers" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="txtInv" HorizontalAlignment="Left" Margin="462,26,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
