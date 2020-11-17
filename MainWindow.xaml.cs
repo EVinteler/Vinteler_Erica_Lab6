@@ -309,6 +309,97 @@ public partial class MainWindow : Window
 
 
         // BUTOANELE PENTRU INVENTORY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        private void btnNewInv_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.New;
+            btnNewInv.IsEnabled = false;
+            btnEditInv.IsEnabled = false;
+            btnDeleteInv.IsEnabled = false;
+
+            btnSaveInv.IsEnabled = true;
+            btnCancelInv.IsEnabled = true;
+            inventoryDataGrid.IsEnabled = false;
+            btnPrevInv.IsEnabled = false;
+            btnNextInv.IsEnabled = false;
+            makeTextBox.IsEnabled = false;
+            colorTextBox.IsEnabled = false;
+
+            BindingOperations.ClearBinding(makeTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(colorTextBox, TextBox.TextProperty);
+
+            makeTextBox.Text = "";
+            colorTextBox.Text = "";
+            Keyboard.Focus(firstNameTextBox);
+        }
+        private void btnEditInv_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Edit;
+            string tempMake = makeTextBox.Text.ToString();
+            string tempColor = colorTextBox.Text.ToString();
+
+            btnNewInv.IsEnabled = false;
+            btnEditInv.IsEnabled = false;
+            btnDeleteInv.IsEnabled = false;
+
+            btnSaveInv.IsEnabled = true;
+            btnCancelInv.IsEnabled = true;
+            inventoryDataGrid.IsEnabled = false;
+            btnPrevInv.IsEnabled = false;
+            btnNextInv.IsEnabled = false;
+            makeTextBox.IsEnabled = true;
+            colorTextBox.IsEnabled = true;
+
+            BindingOperations.ClearBinding(makeTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(colorTextBox, TextBox.TextProperty);
+
+            makeTextBox.Text = tempMake;
+            colorTextBox.Text = tempColor;
+            Keyboard.Focus(makeTextBox);
+
+        }
+        private void btnDeleteInv_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Delete;
+            string tempMake = makeTextBox.Text.ToString();
+            string tempColor = colorTextBox.Text.ToString();
+
+            btnNewInv.IsEnabled = false;
+            btnEditInv.IsEnabled = false;
+            btnDeleteInv.IsEnabled = false;
+
+            btnSaveInv.IsEnabled = true;
+            btnCancelInv.IsEnabled = true;
+            inventoryDataGrid.IsEnabled = false;
+            btnPrevInv.IsEnabled = false;
+            btnNextInv.IsEnabled = false;
+
+            BindingOperations.ClearBinding(makeTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(colorTextBox, TextBox.TextProperty);
+
+            makeTextBox.Text = tempMake;
+            colorTextBox.Text = tempColor;
+        }
+        private void btnCancelInv_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Nothing;
+
+            btnNewInv.IsEnabled = true;
+            btnEditInv.IsEnabled = true;
+            btnDeleteInv.IsEnabled = true;
+
+            btnSaveInv.IsEnabled = false;
+            btnCancelInv.IsEnabled = false;
+            inventoryDataGrid.IsEnabled = true;
+            btnPrevInv.IsEnabled = true;
+            btnNextInv.IsEnabled = true;
+
+            makeTextBox.IsEnabled = false;
+            colorTextBox.IsEnabled = false;
+
+            makeTextBox.SetBinding(TextBox.TextProperty, makeBinding);
+            colorTextBox.SetBinding(TextBox.TextProperty, colorBinding);
+        }
+
         private void btnSaveInv_Click(object sender, RoutedEventArgs e)
         {
             Inventory inventory = null;
@@ -372,8 +463,8 @@ public partial class MainWindow : Window
                 makeTextBox.IsEnabled = false;
                 colorTextBox.IsEnabled = false;
 
-                //makeTextBox.SetBinding(TextBox.TextProperty, makeTextBoxBinding);
-                //colorTextBox.SetBinding(TextBox.TextProperty, colorTextBoxBinding);
+                makeTextBox.SetBinding(TextBox.TextProperty, makeBinding);
+                colorTextBox.SetBinding(TextBox.TextProperty, colorBinding);
             }
             else if (action == ActionState.Delete) // saving after we delete an element
             {
@@ -401,8 +492,8 @@ public partial class MainWindow : Window
                 makeTextBox.IsEnabled = false;
                 colorTextBox.IsEnabled = false;
 
-                //makeTextBox.SetBinding(TextBox.TextProperty, makeTextBoxBinding);
-                //colorTextBox.SetBinding(TextBox.TextProperty, colorTextBoxBinding);
+                makeTextBox.SetBinding(TextBox.TextProperty, makeBinding);
+                colorTextBox.SetBinding(TextBox.TextProperty, colorBinding);
             }
         }
 
