@@ -542,8 +542,8 @@ public partial class MainWindow : Window
         {
             action = ActionState.New;
             btnNewOrd.IsEnabled = false;
-            btnEditOrd.IsEnabled = true;
-            btnDeleteOrd.IsEnabled = true;
+            btnEditOrd.IsEnabled = false;
+            btnDeleteOrd.IsEnabled = false;
             btnSaveOrd.IsEnabled = true;
             btnCancelOrd.IsEnabled = true;
             ordersDataGrid.IsEnabled = true;
@@ -553,8 +553,8 @@ public partial class MainWindow : Window
             cmbCustomers.IsEnabled = true;
             cmbInventory.IsEnabled = true;
 
-            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
-            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
         }
         private void btnEditOrd_Click (object sender, RoutedEventArgs e)
         {
@@ -574,8 +574,8 @@ public partial class MainWindow : Window
             cmbCustomers.IsEnabled = true;
             cmbInventory.IsEnabled = true;
 
-            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
-            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
             cmbCustomers.Text = tempCustId;
             cmbInventory.Text = tempCarId;
         }
@@ -597,8 +597,8 @@ public partial class MainWindow : Window
             cmbCustomers.IsEnabled = true;
             cmbInventory.IsEnabled = true;
 
-            BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
-            BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbCustomers, ComboBox.TextProperty);
+            //BindingOperations.ClearBinding(cmbInventory, ComboBox.TextProperty);
             cmbCustomers.Text = tempCustId;
             cmbInventory.Text = tempCarId;
         }
@@ -618,8 +618,8 @@ public partial class MainWindow : Window
             cmbCustomers.IsEnabled = false;
             cmbInventory.IsEnabled = false;
 
-            cmbCustomers.SetBinding(ComboBox.TextProperty, custIdBinding);
-            cmbInventory.SetBinding(ComboBox.TextProperty, carIdBinding);
+            //cmbCustomers.SetBinding(ComboBox.TextProperty, custIdBinding);
+            //cmbInventory.SetBinding(ComboBox.TextProperty, carIdBinding);
         }
         private void btnSaveOrd_Click (object sender, RoutedEventArgs e)
         {
@@ -640,6 +640,7 @@ public partial class MainWindow : Window
 
                     // adaugam entitatea nou creata in context
                     ctx.Orders.Add(order);
+                    MessageBox.Show("I don't know why but it only refreshes if you close and  re-open it.","Message");
                     customerOrdersViewSource.View.Refresh();
                     // salvam modificarile
                     ctx.SaveChanges();
@@ -651,8 +652,10 @@ public partial class MainWindow : Window
                 btnNewOrd.IsEnabled = true;
                 btnEditOrd.IsEnabled = true;
                 btnDeleteOrd.IsEnabled = true;
+
                 btnSaveOrd.IsEnabled = false;
                 btnCancelOrd.IsEnabled = false;
+
                 ordersDataGrid.IsEnabled = true;
                 btnPrevOrd.IsEnabled = true;
                 btnNextOrd.IsEnabled = true;
@@ -767,6 +770,14 @@ public partial class MainWindow : Window
                 cmbInventory.IsEnabled = false;
             }*/
         }
-       
+        private void btnNextOrd_Click(object sender, RoutedEventArgs e)
+        {
+            customerOrdersViewSource.View.MoveCurrentToNext();
+        }
+        private void btnPrevOrd_Click(object sender, RoutedEventArgs e)
+        {
+            customerOrdersViewSource.View.MoveCurrentToPrevious();
+        }
+
     }
 }
