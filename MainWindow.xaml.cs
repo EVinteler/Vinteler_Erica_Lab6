@@ -35,10 +35,25 @@ public partial class MainWindow : Window
         CollectionViewSource customerViewSource;
         CollectionViewSource inventoryViewSource;
         CollectionViewSource customerOrdersViewSource;
+
+        Binding firstNameBinding = new Binding();
+        Binding lastNameBinding = new Binding();
+        Binding makeBinding = new Binding();
+        Binding colorBinding = new Binding();
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
+            firstNameBinding.Path = new PropertyPath("FirstName");
+            lastNameBinding.Path = new PropertyPath("LastName");
+            makeBinding.Path = new PropertyPath("Make");
+            colorBinding.Path = new PropertyPath("Color");
+            firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameBinding);
+            lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameBinding);
+            makeTextBox.SetBinding(TextBox.TextProperty, makeBinding);
+            colorTextBox.SetBinding(TextBox.TextProperty, colorBinding);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -95,7 +110,97 @@ public partial class MainWindow : Window
 
         // BUTOANELE PT CUSTOMERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void btnNewCus_Click(object sender, RoutedEventArgs e)
-        { }
+        {
+            action = ActionState.New;
+            btnNewCus.IsEnabled = false;
+            btnEditCus.IsEnabled = false;
+            btnDeleteCus.IsEnabled = false;
+
+            btnSaveCus.IsEnabled = true;
+            btnCancelCus.IsEnabled = true;
+            customerDataGrid.IsEnabled = false;
+            btnPrevCus.IsEnabled = false;
+            btnNextCus.IsEnabled = false;
+            firstNameTextBox.IsEnabled = false;
+            lastNameTextBox.IsEnabled = false;
+
+            BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
+
+            firstNameTextBox.Text = "";
+            lastNameTextBox.Text = "";
+            Keyboard.Focus(firstNameTextBox);
+        }
+        private void btnEditCus_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Edit;
+            string tempFirstName = firstNameTextBox.Text.ToString();
+            string tempLastName = lastNameTextBox.Text.ToString();
+
+            btnNewCus.IsEnabled = false;
+            btnEditCus.IsEnabled = false;
+            btnDeleteCus.IsEnabled = false;
+
+            btnSaveCus.IsEnabled = true;
+            btnCancelCus.IsEnabled = true;
+            customerDataGrid.IsEnabled = false;
+            btnPrevCus.IsEnabled = false;
+            btnNextCus.IsEnabled = false;
+            firstNameTextBox.IsEnabled = true;
+            lastNameTextBox.IsEnabled = true;
+
+            BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
+
+            firstNameTextBox.Text = tempFirstName;
+            lastNameTextBox.Text = tempLastName;
+            Keyboard.Focus(firstNameTextBox);
+
+            //SetValidationBinding();
+        }
+        private void btnDeleteCus_Click(object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Delete;
+            string tempFirstName = firstNameTextBox.Text.ToString();
+            string tempLastName = lastNameTextBox.Text.ToString();
+
+            btnNewCus.IsEnabled = false;
+            btnEditCus.IsEnabled = false;
+            btnDeleteCus.IsEnabled = false;
+
+            btnSaveCus.IsEnabled = true;
+            btnCancelCus.IsEnabled = true;
+            customerDataGrid.IsEnabled = false;
+            btnPrevCus.IsEnabled = false;
+            btnNextCus.IsEnabled = false;
+
+            BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
+            BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
+
+            firstNameTextBox.Text = tempFirstName;
+            lastNameTextBox.Text = tempLastName;
+        }
+        private void btnCancelCus_Click (object sender, RoutedEventArgs e)
+        {
+            action = ActionState.Nothing;
+
+            btnNewCus.IsEnabled = true;
+            btnEditCus.IsEnabled = true;
+            btnDeleteCus.IsEnabled = true;
+
+            btnSaveCus.IsEnabled = false;
+            btnCancelCus.IsEnabled = false;
+            customerDataGrid.IsEnabled = true;
+            btnPrevCus.IsEnabled = true;
+            btnNextCus.IsEnabled = true;
+
+            firstNameTextBox.IsEnabled = false;
+            lastNameTextBox.IsEnabled = false;
+
+            firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameBinding);
+            lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameBinding);
+        }
+
         private void btnSaveCus_Click(object sender, RoutedEventArgs e)
         {
             Customer customer = null;
@@ -159,8 +264,8 @@ public partial class MainWindow : Window
                 firstNameTextBox.IsEnabled = false;
                 lastNameTextBox.IsEnabled = false;
 
-                //firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameTextBoxBinding);
-                //lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameTextBoxBinding);
+                firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameBinding);
+                lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameBinding);
             }
             else if (action == ActionState.Delete) // saving after we delete an element
             {
@@ -188,18 +293,11 @@ public partial class MainWindow : Window
                 firstNameTextBox.IsEnabled = false;
                 lastNameTextBox.IsEnabled = false;
 
-                //firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameTextBoxBinding);
-                //lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameTextBoxBinding);
+                firstNameTextBox.SetBinding(TextBox.TextProperty, firstNameBinding);
+                lastNameTextBox.SetBinding(TextBox.TextProperty, lastNameBinding);
             }
         }
 
-        private void btnEditCus_Click(object sender, RoutedEventArgs e)
-        {
-            action = ActionState.Edit;
-            BindingOperations.ClearBinding(firstNameTextBox, TextBox.TextProperty);
-            BindingOperations.ClearBinding(lastNameTextBox, TextBox.TextProperty);
-            //SetValidationBinding();
-        }
         private void btnNextCus_Click (object sender, RoutedEventArgs e)
         {
             customerViewSource.View.MoveCurrentToNext();
